@@ -7,6 +7,9 @@ runConfig:
   maxInstances: 5     # batas biaya; budget alert BUKAN hard cap
   concurrency: 80
 env:
+  - variable: NEXTJS_ADAPTER_VERSION
+    value: "latest"
+    availability: [BUILD]
   - variable: NEXT_PUBLIC_APP_ENV
     value: development
     availability: [BUILD, RUNTIME]
