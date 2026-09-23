@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "placetogo-id",
+    "development": "placetogo-id",
+    "production": "placetogo-id"
+  }
+}

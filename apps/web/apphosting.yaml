@@ -1,0 +1,16 @@
+# Firebase App Hosting (development). Salin/variasikan untuk production (apphosting.production.yaml).
+# Tidak ada nilai rahasia di file ini; secret dirujuk dari Secret Manager.
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  minInstances: 0     # biaya nol saat idle; naikkan hanya jika cold start terukur bermasalah
+  maxInstances: 5     # batas biaya; budget alert BUKAN hard cap
+  concurrency: 80
+env:
+  - variable: NEXT_PUBLIC_APP_ENV
+    value: development
+    availability: [BUILD, RUNTIME]
+  - variable: NEXT_PUBLIC_USE_EMULATORS
+    value: "false"
+    availability: [BUILD, RUNTIME]
+  # Nilai konfigurasi web Firebase & URL API diisi manual per project (lihat docs/deployment).

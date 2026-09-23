@@ -1,0 +1,39 @@
+{
+  "name": "placetogo",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm -r build",
+    "test": "pnpm -r --if-present test",
+    "test:rules": "pnpm --filter @placetogo/firebase-rules test",
+    "emulators": "firebase emulators:start --project demo-placetogo",
+    "dev:web": "pnpm --filter @placetogo/web dev",
+    "dev:api": "pnpm --filter @placetogo/api dev",
+    "reset:emulator": "node services/api/scripts/reset-firebase-data.mjs --emulator",
+    "reset:cloud": "node services/api/scripts/reset-firebase-data.mjs",
+    "seed:demo": "node services/api/scripts/seed-demo-users.mjs",
+    "deploy:rules": "firebase deploy --only firestore,storage",
+    "deploy:firestore": "firebase deploy --only firestore",
+    "deploy:storage": "firebase deploy --only storage",
+    "smoke:api": "pnpm --filter @placetogo/api build && node infrastructure/scripts/run-with-emulators.mjs --only auth,firestore -- node infrastructure/scripts/smoke-api.mjs",
+    "test:e2e": "node infrastructure/scripts/run-with-emulators.mjs --only auth,firestore -- pnpm --filter @placetogo/web e2e:run",
+    "test:integration": "node infrastructure/scripts/run-with-emulators.mjs --only auth,firestore -- \"pnpm --filter @placetogo/api exec vitest run --config vitest.integration.config.ts && pnpm --filter @placetogo/web exec vitest run --config vitest.integration.config.ts\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@next/eslint-plugin-next": "^16.3.5",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "esbuild": "^0.25.0",
+    "firebase-tools": "^15.30.2",
+    "globals": "^17.12.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1"
+  }
+}

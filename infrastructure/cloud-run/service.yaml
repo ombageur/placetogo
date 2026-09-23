@@ -1,0 +1,33 @@
+# Cloud Run service backend (belum dideploy). Ganti PROJECT_ID/REGION dengan nilai yang disetujui.
+# Deploy (manual, setelah persetujuan): gcloud run services replace infrastructure/cloud-run/service.yaml
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: placetogo-api
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"   # batas biaya
+    spec:
+      serviceAccountName: placetogo-api-sa@PROJECT_ID.iam.gserviceaccount.com
+      containerConcurrency: 80
+      timeoutSeconds: 30
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/placetogo/api:TAG
+          ports: [{ containerPort: 8080 }]
+          resources:
+            limits: { cpu: "1", memory: 512Mi }
+          env:
+            - { name: APP_ENV, value: development }
+            - { name: FIREBASE_PROJECT_ID, value: PROJECT_ID }
+            - { name: WEB_ORIGIN, value: "https://DOMAIN_DEV" }
+            - name: GOOGLE_MAPS_SERVER_API_KEY
+              valueFrom: { secretKeyRef: { name: maps-server-api-key, key: latest } }
+            - name: DOKU_CLIENT_ID
+              valueFrom: { secretKeyRef: { name: doku-client-id, key: latest } }
+            - name: DOKU_SECRET_KEY
+              valueFrom: { secretKeyRef: { name: doku-secret-key, key: latest } }
+          startupProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 3, failureThreshold: 10 }
+          livenessProbe: { httpGet: { path: /healthz, port: 8080 }, periodSeconds: 30 }

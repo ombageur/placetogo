@@ -1,0 +1,20 @@
+{
+  "name": "@placetogo/firebase-rules",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node ../infrastructure/scripts/run-with-emulators.mjs --only firestore,storage -- pnpm --filter @placetogo/firebase-rules exec vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.2",
+    "@types/node": "^22.20.4",
+    "firebase": "^12.19.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.1"
+  },
+  "dependencies": {
+    "@placetogo/shared": "workspace:*"
+  }
+}

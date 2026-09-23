@@ -1,0 +1,170 @@
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'tailwindcss';
+
+/*
+ * Token desain placetogo.id. Sumber kebenaran tunggal untuk warna:
+ * blok :root di bawah (dibaca juga oleh tes kontras di src/styles/tokens.test.ts).
+ * Skala spacing memakai bawaan Tailwind (kelipatan 4px); breakpoint tambahan: xs = 430px.
+ */
+:root {
+  /* Merek */
+  --background: #ffffff;
+  --foreground: #12261f;
+  --primary: #136548; /* diukur dari mockup 30 layar; lihat docs/design/warna.md */
+  --primary-strong: #0f3a2c; /* hijau lebih pekat untuk gradien dan status tekan */
+  --primary-foreground: #ffffff;
+  --secondary: #28664f;
+  --secondary-foreground: #ffffff;
+  --mint-soft: #f2f9f5;
+  --mint: #e9f5ee;
+  --mint-strong: #d3ebdd;
+
+  /*
+   * Lapisan permukaan. --background tetap putih murni sebagai warna merek; kanvas halaman
+   * memakai --surface yang bernuansa mint tipis supaya kartu putih terbaca sebagai bidang
+   * terangkat, bukan menyatu dengan latar. --card dan --muted sebelumnya dipakai di komponen
+   * tanpa pernah didefinisikan, sehingga kelasnya diam-diam tidak berefek.
+   */
+  --surface: #f3f9f5;
+  --card: #ffffff;
+  --muted: #eef4f1;
+
+  /* Teks dan garis */
+  --muted-foreground: #4f625a;
+  --border: #c2d8cb; /* dinaikkan sedikit agar tepi kartu tetap terbaca di atas --surface */
+  --border-strong: #6f8f7e; /* batas kontrol input, >= 3:1 terhadap putih */
+  --ring: #174d3b;
+
+  /* Status (pasangan teks/latar dijaga >= 4.5:1) */
+  --danger: #b42318;
+  --danger-foreground: #ffffff;
+  --danger-soft: #fde8e6;
+  --danger-soft-foreground: #9b1c13;
+  --warning-soft: #fff3d6;
+  --warning-soft-foreground: #7a4b00;
+  --info-soft: #e3effb;
+  --info-soft-foreground: #1b4b7a;
+  --success: #157a43;
+  --success-foreground: #ffffff;
+  --success-soft: #e6f6ed;
+  --success-soft-foreground: #0f5c33;
+  --neutral-soft: #eef2f0;
+  --neutral-soft-foreground: #33413b;
+
+  /* Dekoratif (bukan teks): koin */
+  --coin: #f5b301;
+
+  /* Radius dan elevasi */
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(18 38 31 / 0.06), 0 4px 12px rgb(18 38 31 / 0.06);
+  --shadow-nav: 0 -4px 16px rgb(18 38 31 / 0.08);
+  --shadow-modal: 0 16px 48px rgb(18 38 31 / 0.24);
+}
+
+@theme inline {
+  --breakpoint-xs: 26.875rem;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-mint-soft: var(--mint-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-mint: var(--mint);
+  --color-mint-strong: var(--mint-strong);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-foreground: var(--warning-soft-foreground);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-foreground: var(--info-soft-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
+  --color-neutral-soft: var(--neutral-soft);
+  --color-neutral-soft-foreground: var(--neutral-soft-foreground);
+  --color-coin: var(--coin);
+
+  --radius-card: var(--radius-card);
+  --shadow-card: var(--shadow-card);
+  --shadow-nav: var(--shadow-nav);
+  --shadow-modal: var(--shadow-modal);
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--surface);
+    color: var(--foreground);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  /*
+   * Skala tipografi panduan merek (ukuran/tinggi baris dalam piksel):
+   * H1 32/40 SemiBold, H2 24/32 SemiBold, H3 20/28 Medium, H4 16/24 Medium,
+   * Body Large 16/24, Body 14/20, Caption 12/16 Regular, Button 14/20 Medium.
+   *
+   * Aturan elemen ini mengalahkan warna yang diwariskan, jadi h1 di atas permukaan
+   * gelap wajib menyetel warnanya sendiri (mis. text-white).
+   */
+  h1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+  }
+  button {
+    font-weight: 500;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  /* Kunci scroll latar saat modal terbuka. */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
