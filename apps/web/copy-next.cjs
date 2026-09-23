@@ -13,32 +13,31 @@ fs.mkdirSync(destModules, { recursive: true });
 
 function copyPackage(pkgName) {
   const target = path.join(destModules, pkgName);
-  if (fs.existsSync(target)) return;
+  try {
+    if (fs.existsSync(target)) {
+      const stats = fs.statSync(target);
+      if (stats.isDirectory()) {
+        console.log(`${pkgName} already exists in standalone node_modules`);
+        return;
+      }
+    }
+  } catch {}
 
   for (const root of possibleRoots) {
     const src = path.join(root, pkgName);
     if (fs.existsSync(src)) {
-      fs.mkdirSync(path.dirname(target), { recursive: true });
-      fs.cpSync(src, target, { recursive: true, dereference: true });
-      console.log(`Successfully copied ${pkgName} to standalone node_modules`);
-      return;
+      try {
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.cpSync(src, target, { recursive: true, dereference: true, force: true });
+        console.log(`Successfully copied ${pkgName} to standalone node_modules`);
+        return;
+      } catch (e) {
+        console.warn(`Warning copying ${pkgName}:`, e.message);
+      }
     }
   }
 }
 
-const criticalPkgs = [
-  'next',
-  'react',
-  'react-dom',
-  'zod',
-  'clsx',
-  'tailwind-merge',
-  'class-variance-authority',
-  'lucide-react',
-  'firebase',
-];
+copyPackage('next');
 
-for (const pkg of criticalPkgs) {
-  copyPackage(pkg);
-}
 
