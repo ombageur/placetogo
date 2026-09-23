@@ -30,6 +30,29 @@ function copyPackage(pkgName) {
       }
     }
   }
+
+  // Fallback: search inside .pnpm directory
+  for (const root of possibleRoots) {
+    const pnpmDir = path.join(root, '.pnpm');
+    if (fs.existsSync(pnpmDir)) {
+      try {
+        const entries = fs.readdirSync(pnpmDir);
+        for (const entry of entries) {
+          if (entry.startsWith(pkgName + '@') || entry.includes(`+${pkgName}@`)) {
+            const nested = path.join(pnpmDir, entry, 'node_modules', pkgName);
+            if (fs.existsSync(nested)) {
+              const realSrc = fs.realpathSync(nested);
+              fs.rmSync(target, { recursive: true, force: true });
+              fs.mkdirSync(path.dirname(target), { recursive: true });
+              fs.cpSync(realSrc, target, { recursive: true, force: true });
+              console.log(`Successfully copied physical ${pkgName} from .pnpm (${realSrc}) to ${target}`);
+              return;
+            }
+          }
+        }
+      } catch {}
+    }
+  }
 }
 
 const requiredPackages = [
