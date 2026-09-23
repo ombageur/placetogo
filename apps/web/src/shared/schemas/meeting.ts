@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { emptyToUndefined } from '../lib/optional-text.js';
+import { emptyToUndefined } from '../lib/optional-text';
 
 /** Skema input check-in di venue pertemuan */
 export const checkinInputSchema = z.object({

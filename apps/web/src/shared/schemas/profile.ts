@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { AVATAR_IDS, CITY_IDS, INTEREST_IDS } from '../constants/catalog.js';
-import { emptyToUndefined } from '../lib/optional-text.js';
+import { AVATAR_IDS, CITY_IDS, INTEREST_IDS } from '../constants/catalog';
+import { emptyToUndefined } from '../lib/optional-text';
 
 const NO_NEWLINE = /^[^\n\r]+$/;
 

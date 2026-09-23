@@ -5,15 +5,15 @@ export const walletSchema = z.object({
   version: z.number().int().min(0),
 });
 
-export * from './pagination.js';
-export * from './auth.js';
-export * from './profile.js';
-export * from './activity.js';
-export * from './places.js';
-export * from './chat.js';
-export * from './meeting.js';
-export * from './wallet.js';
-export * from './notifications.js';
-export * from './reports.js';
+export * from './pagination';
+export * from './auth';
+export * from './profile';
+export * from './activity';
+export * from './places';
+export * from './chat';
+export * from './meeting';
+export * from './wallet';
+export * from './notifications';
+export * from './reports';
 
 

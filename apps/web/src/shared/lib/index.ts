@@ -1,3 +1,3 @@
-export * from './field-errors.js';
-export * from './optional-text.js';
-export * from './geohash.js';
+export * from './field-errors';
+export * from './optional-text';
+export * from './geohash';

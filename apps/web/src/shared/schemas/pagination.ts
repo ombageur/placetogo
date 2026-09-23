@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PAGINATION } from '../constants/index.js';
+import { PAGINATION } from '../constants/index';
 
 export const pageQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(PAGINATION.maxSize).default(PAGINATION.defaultSize),

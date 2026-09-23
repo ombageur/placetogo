@@ -4,10 +4,10 @@ import {
   ACTIVITY_TRAIT_IDS,
   MAX_ACTIVITY_TRAITS,
   mapLegacyActivityCategoryId,
-} from '../constants/activity-catalog.js';
-import { CITY_IDS } from '../constants/catalog.js';
-import { emptyToUndefined } from '../lib/optional-text.js';
-import { GEOHASH_STORAGE_PRECISION } from '../lib/geohash.js';
+} from '../constants/activity-catalog';
+import { CITY_IDS } from '../constants/catalog';
+import { emptyToUndefined } from '../lib/optional-text';
+import { GEOHASH_STORAGE_PRECISION } from '../lib/geohash';
 
 export const ACTIVITY_STATUSES = [
   'draft',

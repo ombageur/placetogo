@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { emptyToUndefined } from '../lib/optional-text.js';
+import { emptyToUndefined } from '../lib/optional-text';
 
 export const REPORT_TARGET_TYPES = ['activity', 'user', 'message'] as const;
 export type ReportTargetType = (typeof REPORT_TARGET_TYPES)[number];
