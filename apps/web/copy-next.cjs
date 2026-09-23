@@ -42,6 +42,25 @@ for (const root of possibleRoots) {
       } else {
         const target = path.join(destModules, item);
         copyOne(srcItem, target);
+        try {
+          const real = fs.realpathSync(srcItem);
+          const parent = path.dirname(real);
+          if (fs.existsSync(parent) && path.basename(parent) === 'node_modules') {
+            const siblings = fs.readdirSync(parent);
+            for (const sib of siblings) {
+              if (sib === '.bin' || sib === '.pnpm') continue;
+              const sibSrc = path.join(parent, sib);
+              if (sib.startsWith('@')) {
+                const scopedSiblings = fs.readdirSync(sibSrc);
+                for (const ssub of scopedSiblings) {
+                  copyOne(path.join(sibSrc, ssub), path.join(destModules, sib, ssub));
+                }
+              } else {
+                copyOne(sibSrc, path.join(destModules, sib));
+              }
+            }
+          }
+        } catch {}
       }
     }
   } catch {}
