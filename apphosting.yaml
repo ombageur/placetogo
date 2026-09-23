@@ -10,6 +10,9 @@ env:
   - variable: NEXTJS_ADAPTER_VERSION
     value: "latest"
     availability: [BUILD]
+  - variable: NODE_PATH
+    value: "/workspace/apps/web/node_modules:/workspace/node_modules"
+    availability: [RUNTIME]
   - variable: NEXT_PUBLIC_APP_ENV
     value: development
     availability: [BUILD, RUNTIME]

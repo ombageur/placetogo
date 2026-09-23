@@ -7,6 +7,9 @@ runConfig:
   maxInstances: 5     # batas biaya; budget alert BUKAN hard cap
   concurrency: 80
 env:
+  - variable: NODE_PATH
+    value: "/workspace/apps/web/node_modules:/workspace/node_modules"
+    availability: [RUNTIME]
   - variable: NEXT_PUBLIC_APP_ENV
     value: development
     availability: [BUILD, RUNTIME]
