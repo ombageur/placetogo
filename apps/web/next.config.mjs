@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  transpilePackages: ['@placetogo/shared'],
   allowedDevOrigins: ['127.0.0.1', 'localhost'],
 };
 
