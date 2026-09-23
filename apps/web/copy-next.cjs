@@ -1,14 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const srcModules = path.join(__dirname, 'node_modules');
-const destModules = path.join(__dirname, '.next', 'standalone', 'node_modules');
+const srcNext = path.join(__dirname, 'node_modules', 'next');
+const destNext = path.join(__dirname, '.next', 'standalone', 'node_modules', 'next');
 
-if (fs.existsSync(srcModules)) {
-  console.log(`Copying node_modules from ${srcModules} to ${destModules}...`);
-  fs.mkdirSync(destModules, { recursive: true });
-  fs.cpSync(srcModules, destModules, { recursive: true, dereference: true, force: true });
-  console.log('Successfully copied all node_modules to standalone directory!');
+if (fs.existsSync(srcNext)) {
+  const realSrc = fs.realpathSync(srcNext);
+  console.log(`Copying real next from ${realSrc} to ${destNext}...`);
+  fs.rmSync(destNext, { recursive: true, force: true });
+  fs.mkdirSync(destNext, { recursive: true });
+  fs.cpSync(realSrc, destNext, { recursive: true, force: true });
+  console.log('Successfully copied physical next package to standalone node_modules/next!');
 }
 
 
