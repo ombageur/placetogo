@@ -41,6 +41,9 @@ importers:
       '@fortawesome/fontawesome-free':
         specifier: ^7.3.1
         version: 7.3.1
+      '@swc/helpers':
+        specifier: 0.5.5
+        version: 0.5.5
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
