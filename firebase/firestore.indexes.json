@@ -211,17 +211,18 @@
           "order": "DESCENDING"
         }
       ]
-    },
+    }
+  ],
+  "fieldOverrides": [
     {
       "collectionGroup": "checkins",
-      "queryScope": "COLLECTION_GROUP",
-      "fields": [
+      "fieldPath": "uid",
+      "indexes": [
         {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
         }
       ]
     }
-  ],
-  "fieldOverrides": []
+  ]
 }
